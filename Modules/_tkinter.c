@@ -55,6 +55,9 @@ Copyright (C) 1994 Steen Lumholt.
 #if TK_HEX_VERSION >= 0x08050208 && TK_HEX_VERSION < 0x08060000 || \
     TK_HEX_VERSION >= 0x08060200
 #define HAVE_LIBTOMMATH
+#ifndef TCL_WITH_EXTERNAL_TOMMATH
+#define TCL_NO_TOMMATH_H
+#endif
 #include <tclTomMath.h>
 #endif
 
