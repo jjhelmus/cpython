@@ -203,6 +203,38 @@ elif os_name == 'nt':
     SEP = '\\'
 
 
+### JJH stuff
+import sys
+
+def jprint(mess):
+    print(mess, file=sys.stderr)
+
+jprint("----- Runtime -----")
+jprint(f"---- config ----: {config}")
+for k, v in config.items():
+    if v is not None:
+        jprint(f"config[{k}]: {v}")
+jprint("")
+jprint(f"real_execuatable: {real_executable}")
+jprint(f"executable_dir: {executable_dir}")
+jprint(f"py_setath: {py_setpath}")
+jprint(f"library: {library}")
+jprint(f"winreg: {winreg}")
+
+jprint("---- constants -----")
+jprint(f"{BUILDDIR_TXT=}")
+jprint(f"{BUILD_LANDMARK=}")
+jprint(f"{DEFAULT_PROGRAM_NAME=}")
+jprint(f"{STDLIB_SUBDIR=}")
+jprint(f"{STDLIB_LANDMARKS=}")
+jprint(f"{PLATSTDLIB_LANDMARK=}")
+jprint(f"{BUILDSTDLIB_LANDMARKS=}")
+jprint(f"{VENV_LANDMARK=}")
+jprint(f"{ZIP_LANDMARK=}")
+jprint(f"{DELIM=}")
+jprint(f"{SEP=}")
+
+
 # ******************************************************************************
 # HELPER FUNCTIONS (note that we prefer C functions for performance)
 # ******************************************************************************
@@ -419,6 +451,12 @@ if not py_setpath:
 # CALCULATE base_executable, real_executable AND executable_dir
 # ******************************************************************************
 
+jprint("--- Start of Calculate ----")
+jprint(f"{base_executable=}")
+jprint(f"{real_executable=}")
+jprint(f"{executable_dir=}")
+jprint(f"{library=}")
+
 if not base_executable:
     base_executable = executable or real_executable or ''
 
@@ -550,6 +588,17 @@ if ((not home_was_set and real_executable_dir and not py_setpath)
 # CALCULATE prefix AND exec_prefix
 # ******************************************************************************
 
+jprint("--- Start of Calculate prefix ----")
+jprint(f"{prefix=}")
+jprint(f"{exec_prefix=}")
+jprint(f"{py_setpath=}")
+jprint(f"{home=}")
+jprint(f"{library=}")
+jprint(f"{executable_dir=}")
+#jprint(f"{base_executable=}")
+#jprint(f"{real_executable=}")
+
+
 if py_setpath:
     # As documented, calling Py_SetPath will force both prefix
     # and exec_prefix to the empty string.
@@ -652,6 +701,11 @@ else:
     if not prefix or not exec_prefix:
         warn('Consider setting $PYTHONHOME to <prefix>[:<exec_prefix>]')
 
+#print("END", file=sys.stderr)
+#print(":prefix:", file=sys.stderr)
+#print(prefix, file=sys.stderr)
+#print(":exec_prefix:", file=sys.stderr)
+#print(exec_prefix, file=sys.stderr)
 
 # For a venv, update the main prefix/exec_prefix but leave the base ones unchanged
 if venv_prefix:
