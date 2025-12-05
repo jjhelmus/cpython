@@ -443,6 +443,9 @@ if not py_setpath:
                             if isfile(candidate):
                                 base_executable = candidate
                                 break
+                if base_executable and isfile(base_executable):
+                    # Update the executable directory to be based on the resolved base executable
+                    executable_dir = real_executable_dir = dirname(base_executable)
             # home key found; stop iterating over lines
             break
 
