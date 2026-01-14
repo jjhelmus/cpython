@@ -526,7 +526,7 @@ unicodeFromTclObj(Tcl_Obj *value)
 static PyObject *
 Split(const char *list)
 {
-    int argc;
+    Tcl_Size argc;
     const char **argv;
     PyObject *v;
 
@@ -628,7 +628,7 @@ SplitObj(PyObject *arg)
         return result;
     }
     else if (PyUnicode_Check(arg)) {
-        int argc;
+        Tcl_Size argc;
         const char **argv;
         const char *list = PyUnicode_AsUTF8(arg);
 
@@ -643,7 +643,7 @@ SplitObj(PyObject *arg)
         /* Fall through, returning arg. */
     }
     else if (PyBytes_Check(arg)) {
-        int argc;
+        Tcl_Size argc;
         const char **argv;
         const char *list = PyBytes_AS_STRING(arg);
 
@@ -2405,7 +2405,7 @@ _tkinter_tkapp_split(TkappObject *self, PyObject *arg)
 
     if (PyTclObject_Check(arg)) {
         Tcl_Obj *value = ((PyTclObject*)arg)->value;
-        int objc;
+        Tcl_Size objc;
         Tcl_Obj **objv;
         int i;
         if (Tcl_ListObjGetElements(Tkapp_Interp(self), value,
